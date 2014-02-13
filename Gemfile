@@ -19,6 +19,7 @@ gem 'spring', group: :development
 # Additional gems for this project
 
 gem 'devise'
+gem 'validate_url'
 
 group :development, :test do
   gem 'factory_girl_rails'

@@ -1,0 +1,11 @@
+<h2>All Articles</h2>
+
+<% @articles.each do |article| %>
+  <div class="article">
+    <h3><%= link_to article.title, article.url %></h3>
+    <p>
+      by <%= article.user.email %>
+      <%= time_ago_in_words(article.created_at) %> ago
+    </p>
+  </div>
+<% end %>
