@@ -9,6 +9,10 @@ feature 'User comments on an article' do
     visit root_path
     click_link '0 comments'
     expect(page).to_not have_button 'Add Comment'
+
+    # Open question: Does this belong in a feature spec? If not here, where?
+    page.driver.submit(:post, article_comments_path(@article), { comment: attributes_for(:comment) })
+    expect(page).to have_content 'You need to sign in or sign up'
   end
 
   context 'when signed in' do

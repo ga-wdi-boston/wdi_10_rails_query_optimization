@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :get_article_and_comments
+  before_action :authenticate_user!, only: :create
 
   def index
     @comment = Comment.new
