@@ -6,6 +6,13 @@
 
 <h3>Comments</h3>
 
+<% if user_signed_in? %>
+  <%= form_for [@article, @comment] do |f| %>
+    <%= f.text_area :body, placeholder: 'Enter comment...' %>
+    <%= f.submit 'Add Comment' %>
+  <% end %>
+<% end %>
+
 <% @comments.each do |comment| %>
   <div class="comment">
     <hr>
