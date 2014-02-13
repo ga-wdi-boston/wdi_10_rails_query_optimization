@@ -8,9 +8,13 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    article = current_user.articles.new(article_params)
-    article.save!
-    redirect_to root_path, notice: 'Article submitted!'
+    @article = current_user.articles.new(article_params)
+    if @article.save
+      redirect_to root_path, notice: 'Article submitted!'
+    else
+      flash.now[:alert] = @article.errors.full_messages.join(', ')
+      render :new
+    end
   end
 
   private
