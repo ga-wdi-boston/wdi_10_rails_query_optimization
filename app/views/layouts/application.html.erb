@@ -10,6 +10,17 @@
 
 <h1>Haxor News</h1>
 
+<nav>
+  <% if user_signed_in? %>
+    Signed in as <%= current_user.email %>
+    | <%= link_to 'Submit article', new_article_path %>
+    | <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Sign in', new_user_session_path %>
+    to submit articles, comment, and cast votes.
+  <% end %>
+</nav>
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
