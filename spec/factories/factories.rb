@@ -5,6 +5,12 @@ FactoryGirl.define do
     url { Faker::Internet.url }
   end
 
+  factory :comment do
+    article
+    user
+    body { Faker::Lorem.paragraph }
+  end
+
   factory :user do
     email { Faker::Internet.email }
     password { Faker::Internet.password }

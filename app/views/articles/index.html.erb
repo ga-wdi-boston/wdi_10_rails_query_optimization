@@ -6,6 +6,7 @@
     <p>
       by <%= article.user.email %>
       <%= time_ago_in_words(article.created_at) %> ago
+      | <%= link_to pluralize(article.comments.count, 'comment'), article_comments_path(article) %>
     </p>
   </div>
 <% end %>
