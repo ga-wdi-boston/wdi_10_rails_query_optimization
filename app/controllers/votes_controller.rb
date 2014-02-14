@@ -1,6 +1,7 @@
 class VotesController < ApplicationController
   def update
-    vote = current_user.votes.new(votable: votable, direction: direction)
+    vote = Vote.find_or_initialize_by(user: current_user)
+    vote.assign_attributes(votable: votable, direction: direction)
     vote.save!
 
     redirect_to :back

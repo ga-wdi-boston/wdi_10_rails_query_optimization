@@ -15,4 +15,10 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password { Faker::Lorem.words(5).join }
   end
+
+  factory :vote do
+    user
+    association :votable, factory: :article
+    direction { rand(-1..1) }
+  end
 end
