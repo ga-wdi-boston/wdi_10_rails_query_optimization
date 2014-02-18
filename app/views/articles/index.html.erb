@@ -9,6 +9,7 @@
       <%= time_ago_in_words(article.created_at) %> ago
       <% if user_signed_in? %>
         | <%= vote_link(article, 'up') %>
+        | <%= vote_link(article, 'down') %>
       <% end %>
       | <%= link_to pluralize(article.comments.count, 'comment'), article_comments_path(article) %>
     </p>
