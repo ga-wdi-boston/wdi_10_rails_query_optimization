@@ -19,6 +19,6 @@ FactoryGirl.define do
   factory :vote do
     user
     association :votable, factory: :article
-    direction { rand(-1..1) }
+    direction { ['up', 'down'].sample }
   end
 end
