@@ -6,6 +6,9 @@ feature 'User votes an article' do
     @article = create(:article)
   end
 
+  # Contexts are useful for organizing scenarios within a feature.
+  # They can contain their own `background` blocks to share setup for
+  # scenarios within them, though I'm not doing that here.
   context 'up' do
     scenario 'from neutral' do
       sign_in_as(@user)

@@ -24,6 +24,8 @@ feature 'Visitor views all articles on the home page' do
     )
   end
 
+  # It's sometimes useful to define helper methods like this inside a
+  # `feature` block. They are accessible only to scenarios within the feature.
   def create_article_with_votes(upvotes, downvotes, **attributes)
     article = create(:article, attributes)
     create_list(:vote, upvotes, votable: article, direction: 'up')
