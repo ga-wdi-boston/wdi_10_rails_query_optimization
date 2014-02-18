@@ -4,10 +4,12 @@
   <div class="article">
     <h3><%= link_to article.title, article.url %></h3>
     <p>
-      <%= pluralize(article.votes.count, 'point') %>
+      <%= pluralize(article.score, 'point') %>
       by <%= article.user.email %>
       <%= time_ago_in_words(article.created_at) %> ago
-      | <%= link_to 'Upvote', article_vote_path(article, direction: 'up'), method: :patch %>
+      <% if user_signed_in? %>
+        | <%= vote_link(article, 'up') %>
+      <% end %>
       | <%= link_to pluralize(article.comments.count, 'comment'), article_comments_path(article) %>
     </p>
   </div>

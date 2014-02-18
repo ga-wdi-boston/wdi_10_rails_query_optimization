@@ -56,11 +56,12 @@ ActiveRecord::Schema.define(version: 20140214154940) do
     t.integer  "user_id"
     t.integer  "votable_id"
     t.string   "votable_type"
-    t.integer  "direction"
+    t.string   "direction"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "votes", ["direction"], name: "index_votes_on_direction", using: :btree
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
   add_index "votes", ["votable_id", "votable_type"], name: "index_votes_on_votable_id_and_votable_type", using: :btree
 
