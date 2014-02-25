@@ -10,5 +10,13 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :create]
   end
 
+  # I did this to stick to one level of nesting and make polymorphic vote
+  # paths easier to generate. The `only: []` means there actually won't be any
+  # top-level comment routes.
+
+  resources :comments, only: [] do
+    resource :vote, only: :update, defaults: { votable_type: 'Comment' }
+  end
+
   root to: 'articles#index'
 end
