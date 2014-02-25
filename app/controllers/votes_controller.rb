@@ -1,4 +1,6 @@
 class VotesController < ApplicationController
+  before_action :authenticate_user!
+
   def update
     vote = Vote.find_or_initialize_by(user: current_user, votable: votable)
     vote.update!(direction: params[:direction])
