@@ -1,0 +1,7 @@
+<%= pluralize(votable.score, 'point') %>
+by <%= votable.user.email %>
+<%= time_ago_in_words(votable.created_at) %> ago
+<% if user_signed_in? %>
+  | <%= vote_link(votable, 'up') %>
+  | <%= vote_link(votable, 'down') %>
+<% end %>

@@ -16,15 +16,7 @@
 <% @comments.each do |comment| %>
   <div class="comment">
     <hr>
-    <p>
-      <%= pluralize(comment.score, 'point') %>
-      by <%= comment.user.email %>
-      <%= time_ago_in_words(comment.created_at) %> ago
-      <% if user_signed_in? %>
-        | <%= vote_link(comment, 'up') %>
-        | <%= vote_link(comment, 'down') %>
-      <% end %>
-    </p>
+    <p><%= render 'shared/byline', votable: comment %></p>
     <%= simple_format(comment.body) %>
   </div>
 <% end %>
