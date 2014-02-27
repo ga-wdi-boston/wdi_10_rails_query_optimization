@@ -15,10 +15,6 @@ feature 'User comments on an article' do
     expect(page).to have_content 'You need to sign in or sign up'
   end
 
-  # Contexts are useful for organizing scenarios within a feature.
-  # They can contain their own `background` blocks to share setup for
-  # scenarios within them, though I'm not doing that here.
-
   context 'when signed in' do
     background do
       @user = create(:user)
