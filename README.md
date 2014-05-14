@@ -10,11 +10,11 @@ This project is divided into suggested implementation phases based on the order 
 
 ## Phase 1: Articles
 
-On the real Hacker News, articles can be either a link to another web site or simply a chunk of text (polls are also supported). We'll remove some of that complexity and just say that articles are links. They have a title, which must be present, and a URL, which must be valid. Since we don't have users yet, articles will be submitted anonymously and cannot be edited or deleted. Since we also don't have voting yet, articles will be listed on the front page in descending order of submission date. Article titles should be linked to their external URLs.
+On the real Hacker News, articles can be either a link to another web site or simply a chunk of text (polls are also supported). We'll remove some of that complexity and just say that articles are links. They have a title, which must be present, a URL, which must be valid, and a submission timestamp. Since we don't have users yet, articles will be submitted anonymously and cannot be edited or deleted. Since we also don't have voting yet, articles will be listed on the front page in descending order of submission date. Article titles should be linked to their external URLs.
 
 ## Phase 2: Comments
 
-The real Hacker News supports threaded discussions where comments can be replies to other comments. Our cheap copy will only support top-level comments directly attached to articles, so we don't have to deal with weird self-referential associations. Since we still don't have users or voting yet, comments are anonymous and should be listed in order of submission date. Comments have only a body, which of course is required.
+The real Hacker News supports threaded discussions where comments can be replies to other comments. Our cheap copy will only support top-level comments directly attached to articles, so we don't have to deal with weird self-referential associations. Since we still don't have users or voting yet, comments are anonymous and should be listed in order of submission date. Comments have only a body, which of course is required, and a submission timestamp.
 
 ## Phase 3: Users
 
@@ -40,10 +40,9 @@ Your finished app must be deployed and functional at a Heroku URL that you provi
 * **(2)** Models have appropriate validations and errors are shown to the user
 * **(1)** App has at least basic styles to provide an attractive and intuitive experience
 * **(1)** App generates HTML and CSS that validates with no errors
-* **(1)** Code is placed in the correct locations and files according to Rails conventions
 * **(2)** Code is well-refactored and avoids duplication or repetition
 * **(2)** Code follows style conventions and has descriptive variable and method names
-* **(2)** App has feature specs that cover all relevant user stories and scenarios
+* **(3)** App has feature specs that cover all relevant user stories and scenarios
 * **(2)** App has model specs with full coverage of all public methods and behavior
 * **(2)** Repository has clean, logical, single-task commits with descriptive messages
 * **(2)** App is deployed and fully functional on Heroku
