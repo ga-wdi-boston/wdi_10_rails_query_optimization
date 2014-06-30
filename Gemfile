@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Base gems added by `rails new`
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.2'
 
 gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
@@ -23,8 +23,7 @@ gem 'devise'
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
-  gem 'pry-nav'
-  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
   gem 'rspec-rails'
 end
 
