@@ -27,6 +27,6 @@ class CommentsController < ApplicationController
 
   def get_article_and_comments
     @article = Article.find(params[:article_id])
-    @comments = @article.comments.order(score: :desc)
+    @comments = @article.comments.includes(:user).order(score: :desc)
   end
 end
