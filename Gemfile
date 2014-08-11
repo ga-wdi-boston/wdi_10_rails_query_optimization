@@ -23,6 +23,7 @@ gem 'validate_url'
 
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'rspec-rails'
@@ -31,7 +32,6 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'faker'
   gem 'launchy'
   gem 'shoulda-matchers'
 end
@@ -39,3 +39,7 @@ end
 group :production do
   gem 'rails_12factor'
 end
+
+## Additional gems for query optimization demo
+
+gem 'bullet', group: :development

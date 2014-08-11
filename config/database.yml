@@ -23,13 +23,13 @@ default: &default
 
 development:
   <<: *default
-  database: wdi_4_rails_hw_tdd_hacker_news_development
+  database: wdi_10_rails_database_performance_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: wdi_4_rails_hw_tdd_hacker_news
+  #username: wdi_10_rails_database_performance
 
   # The password associated with the postgres role (username).
   #password:
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: wdi_4_rails_hw_tdd_hacker_news_test
+  database: wdi_10_rails_database_performance_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: wdi_4_rails_hw_tdd_hacker_news_production
-  username: wdi_4_rails_hw_tdd_hacker_news
-  password: <%= ENV['WDI_4_RAILS_HW_TDD_HACKER_NEWS_DATABASE_PASSWORD'] %>
+  database: wdi_10_rails_database_performance_production
+  username: wdi_10_rails_database_performance
+  password: <%= ENV['WDI_10_RAILS_DATABASE_PERFORMANCE_DATABASE_PASSWORD'] %>

@@ -1,60 +1,24 @@
-# HaxorNews&trade;
+# ActiveRecord Query Optimization
 
-*"Hack the planet!"*
+Shh, don't tell anyone... but all the Rails apps you've been building for the past 9 weeks probably have *really bad* database performance! Why? Because Rails makes it super easy to write code that causes **N+1 queries**.
 
-[Hacker News](https://news.ycombinator.com/) is a social news web site that caters to programmers and entrepreneurs. Although it's quite popular, it doesn't look that hard to build... in fact, we could probably write our own in less than a week!
+N+1 is a performance issue where, in the process of displaying N records on a page, you end up sending N+1 (or more) SQL queries to the database. This is hugely inefficient, since every round-trip from Ruby to Postgres takes time. It's much better to **preload** or **cache** the data you know you'll need, so the number of database round-trips is a small constant number regardless of how many records are being displayed.
 
-## Getting Started
+A typical example might be displaying a list of articles, which each belong to a user, and wanting to display information about each article's user. We make an initial query for articles in the controller using `Article.all`, and then every time we call `.user` on an individual article in the view, another SQL query is sent to retrieve that article's user. If we had 20 articles, we'd be making 21 queries.
 
-Fork this repository as a starting point &ndash; it includes all the gems you'll need.
+Rails has two basic means of solving N+1 issues:
 
-This project is divided into suggested implementation phases based on the order we will be covering material this week. The phases do not directly correspond to nights of the week, however this project is designed to take up the whole week. Budget your time wisely!
+* **[Eager Loading](http://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations)**
+* **[Counter Caching](http://guides.rubyonrails.org/association_basics.html#counter-cache)**
 
-Remember, we are explicitly building a "clone" of Hacker News. If you're not sure how something in your app should appear or behave, just refer to the real thing!
+There is also a gem called **[bullet](https://github.com/flyerhzm/bullet)** that can (imperfectly) detect N+1 issues for us, and tell us which of the above techniques we need to use.
 
-## Phase 1: Users
+## Setup
 
-Users should be able to register for accounts, sign in, and sign out. Don't worry about any other account functionality, like forgotten password emails. Note we've already run `rails g devise:install` in this repository.
+This repo is yet another copy of the [example branch](https://github.com/ga-wdi-boston/wdi_4_rails_hw_hacker_news/tree/example) from the Week 4 Hacker News project. It now includes seed data that will randomly generate a large-ish number of users, articles, comments, and votes. Run `rake db:setup` to set up the database, and the seed data will be loaded automatically.
 
-## Phase 2: Articles
+Bullet is set up as per the gem's README &ndash; see `config/environments/development.rb`.
 
-Signed-in users can submit articles. On the real Hacker News, articles can be a link to another web site, a chunk of text, or a poll. We'll remove some of that complexity and say that articles are just links. They have a title, which must be present, a URL, which must be valid, and a submission timestamp. The front page displays a list of all articles, with article titles linked to their URLs.
+### Important bullet caveat!
 
-## Phase 3: Comments
-
-Signed-in users can leave comments on articles. The real Hacker News supports threaded discussions where comments can be replies to other comments. Our cheap copy will only support top-level comments directly attached to articles, so we don't have to deal with weird self-referential associations. Comments have a body, which must be present, and a submission timestamp.
-
-## Phase 4: Votes
-
-Signed-in users can upvote or downvote both articles and comments. Each user can only cast one vote on a given article or comment, but they can take it back or change it at any time. For instance, I could upvote an article, then later change my upvote to a downvote, then later take back my downvote (so my vote is back to "neutral"). Both articles and comments should now be sorted by "score", which is the number of upvotes minus the number of downvotes.
-
-## Phase 4.5: Testing?
-
-Due to an abbreviated week this session, you may not have time to write many tests or develop features using Test-Driven Development. However, we recommend adding at least some feature test coverage for the primary workflows of your app, and unit tests for public model methods. Practice with writing tests will come in handy for Project #1.
-
-## Phase 5: Ship It!
-
-Your finished app must be deployed and functional at a Heroku URL that you provide in your pull request. This shouldn't take long, but leave some extra time for it in case you run into any strange issues.
-
-## Specifications
-
-* App has a database schema with appropriate columns and indexes
-* App has working seed data to assist in manual testing
-* Users can register for an account, sign in, and sign out
-* Users can view a list of all articles and submit their own
-* Users can view comments on articles and submit their own
-* Users can upvote/downvote articles and comments, and change their vote
-* Articles and comments are sorted by upvote/downvote score
-* Models have appropriate validations and errors are shown to the user
-* App has at least basic styles to provide an attractive and intuitive experience
-* App generates HTML and CSS that validates with no errors
-* Code is well-refactored and avoids duplication or repetition
-* Code follows style conventions and has descriptive variable and method names
-* App has at least some feature tests and unit tests using RSpec
-* Repository has clean, logical, single-task commits with descriptive messages
-* App is deployed and fully functional on Heroku
-
-## Extra Challenges
-
-* Having the front page display every single article on the site probably won't perform very well once we have thousands of articles. Use the Kaminari gem to implement paging of articles and comments.
-* The real Hacker News doesn't display articles sorted by pure upvote/downvote score &ndash; it uses a "weighted" score that takes the time of the submission into account, so older articles gradually decay and move down the list. Implement this "decay factor" in your app.
+Bullet can only detect missing counter caches when we use the `.size` method to get the number of records in a collection or association &ndash; using `.count` or `.length` will not trigger the warning, even if it generates N+1 queries. You should probably be using `.size` anyway: [See the differences here](http://web.archive.org/web/20100210204319/http://blog.hasmanythrough.com/2008/2/27/count-length-size).
